@@ -17,12 +17,15 @@ def getCookiePath():
 
     return path
 
-def getDateTimeTimeZone(dt=datetime.now(timezone.utc).astimezone(), timezone='US/Central'):
+def getDateTimeTimeZone(dt=None, tz='US/Central'):
+    if dt == None:
+        dt = datetime.now(timezone.utc).astimezone()
+
     if dt.tzinfo == None:
         utc = pytz.timezone('UTC')
         dt = utc.localize(dt)
     
-    tz = pytz.timezone(timezone)
+    tz = pytz.timezone(tz)
     dt = dt.astimezone(tz)
 
     return dt
