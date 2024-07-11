@@ -9,7 +9,7 @@ This project utilizes the Google Sheets API to check for new records and post th
 
 The project mainly utilizes the follow python packages:
 - GSpread, for interacting with the Google Sheets API: https://github.com/burnash/gspread
-- Twikit, for posting to Twitter without having to use the limited and tempermental API: https://github.com/d60/twikit
+- Twikit, for posting to Twitter without having to use the limited, paywalled, and tempermental API: https://github.com/d60/twikit
 
 The project requires the following files to run:
 - A .env file in the main directory with the Twitter credentials, sheet key, and a few other variables. An example is included in the repository: [.env.example](.env.example)
