@@ -6,7 +6,7 @@ import asyncio
 import twikit
 import time
 import pytz
-from datetime import datetime
+from datetime import datetime, timezone
 
 def getCookiePath():
     path = os.path.join(os.getcwd(), 'Data')
@@ -17,10 +17,9 @@ def getCookiePath():
 
     return path
 
-def getDateTimeTimeZone(dt=datetime.now(), timezone='US/Central'):
-    utc = pytz.timezone('UTC')
-
+def getDateTimeTimeZone(dt=datetime.now(timezone.utc).astimezone(), timezone='US/Central'):
     if dt.tzinfo == None:
+        utc = pytz.timezone('UTC')
         dt = utc.localize(dt)
     
     tz = pytz.timezone(timezone)
