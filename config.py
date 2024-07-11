@@ -27,7 +27,7 @@ def __saveConfigFile(config):
     path = __getConfigPath()
 
     with open(path, 'w') as f:
-        json.dump(config, f)
+        json.dump(config, f, indent = 4)
 
 def saveConfigValue(key, value):
     #saves a value to the config file

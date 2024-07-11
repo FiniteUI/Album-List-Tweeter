@@ -5,6 +5,7 @@ import config
 import asyncio
 import twikit
 import time
+import pytz
 from datetime import datetime
 
 def getCookiePath():
@@ -15,6 +16,17 @@ def getCookiePath():
     path = os.path.join(path, 'cookies.json')
 
     return path
+
+def getDateTimeTimeZone(dt=datetime.now(), timezone='US/Central'):
+    utc = pytz.timezone('UTC')
+
+    if dt.tzinfo == None:
+        dt = utc.localize(dt)
+    
+    tz = pytz.timezone(timezone)
+    dt = dt.astimezone(tz)
+
+    return dt
 
 async def tweet(content):
     #load twikit client
@@ -71,12 +83,12 @@ def run():
             #save config data
             config.saveConfigValue('tweets_sent', config.getConfigValue('tweets_sent', default = 0) + 1)
             config.saveConfigValue('last_row', row)
-            config.saveConfigValue('last_tweet', datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S.%f %p'))
+            config.saveConfigValue('last_tweet', str(getDateTimeTimeZone()))
 
             print("Process complete.")
 
         #save process time
-        config.saveConfigValue('last_process', datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S.%f %p'))
+        config.saveConfigValue('last_process', str(getDateTimeTimeZone()))
 
         #now we wait
         print("Waiting...")
