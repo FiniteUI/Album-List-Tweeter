@@ -76,7 +76,14 @@ def run():
             album = sheet.cell(row, 3).value
             year = sheet.cell(row, 4).value
             link = sheet.cell(row, 6).value
-            tweet_text = f'Just listened to {album} by {artist} ({year}) for the first time:\n\n{link}'
+            tweet_text = f'Just listened to the album {album} by {artist} ({year}) for the first time:\n\n{link}'
+
+            #get number of albums this year
+            year = datetime.strftime(datetime.now(), '%Y')
+            albums = len(sheet.findall(year, in_column=7))
+            extra_text = f"\n\nI've listened to {albums} new albums so far this year."
+            if (len(tweet_text) + len(extra_text) <= 280):
+                tweet_text = tweet_text + extra_text
 
             #send tweet
             print(f"New record found, sending tweet...")
