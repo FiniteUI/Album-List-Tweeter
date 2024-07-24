@@ -6,6 +6,7 @@ import asyncio
 import twikit
 import time
 import pytz
+import re
 from datetime import datetime, timezone
 
 def getCookiePath():
@@ -80,7 +81,8 @@ def run():
 
             #get number of albums this year
             year = datetime.strftime(datetime.now(), '%Y')
-            albums = len(sheet.findall(year, in_column=7))
+            year = re.compile(f'..?/..?/{year}')
+            albums = len(sheet.findall(year, in_column=5))
             extra_text = f"\n\nI've listened to {albums} new albums so far this year."
             if (len(tweet_text) + len(extra_text) <= 280):
                 tweet_text = tweet_text + extra_text
